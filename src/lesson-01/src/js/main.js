@@ -93,9 +93,13 @@ list.innerHTML = renderTaskList(tasks);
 // - Create a <p> element
 // - Set its textContent
 // - Append it to the output element
-
+function addMessage(message) {
+    const p = document.createElement('p'); // tagname for <p>
+    p.textContent = message;
+    output.appendChild(p); // At this point, the fragment is now part of our webpage
+}
 // TODO: Test the addMessage function
-
+addMessage('The message was appeneded with createElement');
 // --------------------------------------------------
 // STEP 7: Events – connect UI to behavior
 // --------------------------------------------------
@@ -105,16 +109,36 @@ list.innerHTML = renderTaskList(tasks);
 // - Clear output
 // - Add a few messages
 // - Render the task list
-
+function runDemo() {
+    output.innerHTML = ''; // clear the output
+    addMessage('Running demo...');
+    addMessage(formatResult('5 + 8', add (5, 8)));
+    list.innerHTML = renderTaskList(tasks);
+}
 // TODO: Create a function clearUI()
 // - Clear both output and todo list containers
-
+function clearUI() {
+    output.innerHTML = '';
+    list.innerHTML = '';
+}
 // TODO: Add click listeners for btnRun and btnClear
-
+btnRun.addEventListener('click', runDemo);
+btnClear.addEventListener('click', clearUI);
 // --------------------------------------------------
 // STEP 8: Mini extension – Adding tasks
 // --------------------------------------------------
+// <input id='txt-task' />
+const txtTask = document.getElementById('txt-task');
+const btnAdd = document.getElementById('btn-add');
 
+btnAdd.addEventListener('click', () =>{
+    const title = txtTask.value.trim();
+    if(title) {
+        tasks.push({title, done: false});
+        list.innerHTML = renderTaskList(tasks);
+        txtTask.value = '';
+    }
+});
 // --------------------------------------------------
 // STEP 9: Student Exercise
 // --------------------------------------------------
